@@ -17,7 +17,7 @@ javacard {
                 aid appletAid
             }
             dependencies {
-                remote 'fr.bmartel:gplatform:2.1.1'
+                remote 'org.globalplatform:javacard:1.1'
             }
         }
     }
