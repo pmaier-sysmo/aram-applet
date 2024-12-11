@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'fr.bmartel:gradle-javacard:1.5.2'
@@ -14,7 +14,7 @@ allprojects {
     apply plugin: 'com.github.kt3k.coveralls'
 
     repositories {
-        jcenter()
+        mavenCentral()
 	maven {
            url "https://javacard.pro/maven"
         }
