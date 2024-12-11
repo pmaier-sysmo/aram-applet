@@ -3,12 +3,13 @@
 [![Build Status](https://travis-ci.org/bertrandmartel/aram-applet.svg?branch=master)](https://travis-ci.org/bertrandmartel/aram-applet)
 [![Coverage Status](https://coveralls.io/repos/github/bertrandmartel/aram-applet/badge.svg?branch=master)](https://coveralls.io/github/bertrandmartel/aram-applet?branch=master)
 
-JavaCard implementation of Global Platform Access Rule Application Master (ARA-M) applet from [Secure Element Access Control v1.0 specification](https://globalplatform.org/specificationscard.asp).
+JavaCard implementation of Global Platform Access Rule Application Master (ARA-M) applet according to
+[Secure Element Access Control v1.1](https://globalplatform.org/specs-library/secure-element-access-control-v1-1) specification.
 
 ## What is this ?
 
-ARA-M is an application (typically present on a SIM card) which manage access rules that are enforced by an Access Control Enforcer (typically present on [Android device](https://github.com/seek-for-android/pool/wiki)).
-The enforcer makes sure the rules from the ARAM are enforced. An access rule is composed of :
+ARA-M is an application (typically present on a SIM card) which manages access rules that are enforced by an Access Control Enforcer (typically present on [Android device](https://github.com/seek-for-android/pool/wiki)).
+The enforcer makes sure the rules from the ARAM are enforced. An access rule is composed of:
 * an AID
 * a certificate hash (sha1 of client application cert)
 * a set of rules
@@ -45,43 +46,53 @@ More information : [seek-for-android Access Control wiki](https://github.com/see
 
 ## Setup
 
+#### Prepare the repository
+
 ```bash
 git clone git@github.com:bertrandmartel/aram-applet.git
 cd aram-applet
 git submodule update --init
 ```
 
-* build
+#### Build the applet
+
+To build the applet, a valid combination of JDK and JAVA-card SDK must be used. This applet requires a combination of jc221_kit and jdk-8u421 (jdk1.8.0_421). A convenient way to select the JDK is to set the environment variable JAVA_HOME before calling ./gradlew.
+
+* A table with compatible JDK / JAVA-card SDK combinations can be found here:  
+<https://github.com/martinpaljak/ant-javacard/wiki/JavaCard-SDK-and-JDK-version-compatibility>
+
+* Older JDK versions are available here:  
+<https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html>
 
 ```bash
-./gradlew build
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew build
 ```
 
-* build & install (will **delete** existing applet before install)
+#### build & install (will **delete** existing applet before install)
 
 ```bash
-./gradlew installJavaCard
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew installJavaCard
 ```
 
 ## Tests
 
-* run simulation tests
+#### run simulation tests
 
 ```bash
-./gradlew test
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew test
 ```
 
-* run tests on smartcard
+#### run tests on smartcard
 
 ```bash
-./gradlew test -DtestMode=smartcard
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew test -DtestMode=smartcard
 ```
 
 ## Scripts
 
 ### Install for personalization
 
-* list rules
+#### list rules
 
 ```bash
 gp -acr-list
@@ -89,13 +100,13 @@ gp -acr-list
 
 Use [GlobalPlatformPro](https://github.com/martinpaljak/GlobalPlatformPro) to send store data via the Security Domain with install comand + install for personalization :
 
-* add rule
+#### add rule
 
 ```bash
 gp -acr-add -acr-rule 01 -app D2760001180002FF49502589C0019B18 -acr-hash 1FA8CC6CE448894C7011E23BCF56DB9BD9097432
 ```
 
-* delete rule
+#### delete rule
 
 ```bash
 gp -acr-delete -app D2760001180002FF49502589C0019B18 -acr-hash 1FA8CC6CE448894C7011E23BCF56DB9BD9097432
@@ -103,15 +114,15 @@ gp -acr-delete -app D2760001180002FF49502589C0019B18 -acr-hash 1FA8CC6CE448894C7
 
 ### Raw APDU
 
-* list rules
+#### list rules
 
 ```bash
-./gradlew list
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew list
 ```
 
 The following task send store data command raw apdu via [GlobalPlatformPro](https://github.com/martinpaljak/GlobalPlatformPro) (for add & delete) :
 
-* add rule
+#### add rule
 
 ```bash
 ./gradlew store
@@ -120,17 +131,17 @@ The following task send store data command raw apdu via [GlobalPlatformPro](http
 or
 
 ```bash
-./gradlew test --tests fr.bmartel.aram.AramTest.storeDataValid
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew test --tests fr.bmartel.aram.AramTest.storeDataValid
 ```
 
-* delete rule
+#### delete rule
 
 ```bash
 ./gradlew delete
 ```
 or
 ```bash
-./gradlew test --tests fr.bmartel.aram.AramTest.deleteByAid
+JAVA_HOME=/path/to/your/jdk1.8.0_421/ ./gradlew test --tests fr.bmartel.aram.AramTest.deleteByAid
 ```
 
 ## License
