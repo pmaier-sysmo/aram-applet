@@ -18,6 +18,10 @@ allprojects {
 	maven {
            url "https://javacard.pro/maven"
         }
+	//Load jcardsim-3.0.4.jar from archive.org
+        maven {
+           url "https://web.archive.org/web/20210502003943if_/https://dl.bintray.com/bertrandmartel/maven/"
+        }
     }
 
     jacoco {
