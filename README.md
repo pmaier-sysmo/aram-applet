@@ -11,7 +11,7 @@ JavaCard implementation of Global Platform Access Rule Application Master (ARA-M
 ARA-M is an application (typically present on a SIM card) which manages access rules that are enforced by an Access Control Enforcer (typically present on [Android device](https://github.com/seek-for-android/pool/wiki)).
 The enforcer makes sure the rules from the ARAM are enforced. An access rule is composed of:
 * an AID
-* a certificate hash (sha1 of client application cert)
+* a certificate hash (SHA-1 or SHA-256 hash of the client application certificate)
 * a set of rules
 
 The Access Control enforcer will allow/deny a client application (for example an Android app) to send APDU to a SE applet based on these rules
